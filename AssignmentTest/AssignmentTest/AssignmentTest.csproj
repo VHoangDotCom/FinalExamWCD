@@ -135,6 +135,7 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Data\ShopContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -151,14 +152,16 @@
     <Compile Include="Migrations\202203180207098_AddViewModel.Designer.cs">
       <DependentUpon>202203180207098_AddViewModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202203180216346_catename.cs" />
-    <Compile Include="Migrations\202203180216346_catename.Designer.cs">
-      <DependentUpon>202203180216346_catename.cs</DependentUpon>
+    <Compile Include="Migrations\202203210104389_UpdateShoppingCart.cs" />
+    <Compile Include="Migrations\202203210104389_UpdateShoppingCart.Designer.cs">
+      <DependentUpon>202203210104389_UpdateShoppingCart.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Models\ViewModel\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -213,6 +216,7 @@
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\IndexAjax.cshtml" />
     <Content Include="Views\Categories\IndexAjax.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -240,8 +244,8 @@
     <EmbeddedResource Include="Migrations\202203180207098_AddViewModel.resx">
       <DependentUpon>202203180207098_AddViewModel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203180216346_catename.resx">
-      <DependentUpon>202203180216346_catename.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202203210104389_UpdateShoppingCart.resx">
+      <DependentUpon>202203210104389_UpdateShoppingCart.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

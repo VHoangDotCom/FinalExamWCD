@@ -88,5 +88,4 @@ D:\epc\Ap-Sem3\Web Application Development\Test Projects\AssignmentTest\Assignme
 D:\epc\Ap-Sem3\Web Application Development\Test Projects\AssignmentTest\AssignmentTest\bin\PagedList.xml
 D:\epc\Ap-Sem3\Web Application Development\Test Projects\AssignmentTest\AssignmentTest\bin\PagedList.Mvc.xml
 D:\epc\Ap-Sem3\Web Application Development\Test Projects\AssignmentTest\AssignmentTest\obj\Debug\AssignmentTest.Migrations.AddViewModel.resources
-D:\epc\Ap-Sem3\Web Application Development\Test Projects\AssignmentTest\AssignmentTest\obj\Debug\AssignmentTest.Migrations.catename.resources
-D:\epc\Ap-Sem3\Web Application Development\Test Projects\AssignmentTest\AssignmentTest\obj\Debug\AssignmentTest.csproj.AssemblyReference.cache
+D:\epc\Ap-Sem3\Web Application Development\Test Projects\AssignmentTest\AssignmentTest\obj\Debug\AssignmentTest.Migrations.UpdateShoppingCart.resources

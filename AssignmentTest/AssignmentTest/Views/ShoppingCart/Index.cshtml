@@ -1,0 +1,188 @@
+﻿
+@model IEnumerable<AssignmentTest.Models.CartItem>
+@{
+    ViewBag.Title = "Index";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<h2>Index</h2>
+
+<section class="section-content padding-y">
+    <div class="container">
+        <div class="row">
+            <main class="col-md-9">
+                <div class="card">
+
+                    <table class="table table-borderless table-shopping-cart">
+                        <thead class="text-muted">
+                            <tr class="small text-uppercase">
+                                <th scope="col">Product</th>
+
+                                <th scope="col" width="120">Quantity</th>
+                                <th scope="col" width="120">Price</th>
+                                <th scope="col" width="120">SubTotal</th>
+                                <th scope="col" class="text-right" width="200"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+
+
+                                    <tr id="product-@item.proID">
+
+
+                                        <td>
+                                            <figure class="itemside">
+
+                                                <figcaption class="info">
+                                                    <a href="#" class="title text-dark">@item.ProName</a>
+                                                </figcaption>
+                                            </figure>
+                                        </td>
+                                        <td>
+
+                                            <input type="text" name="quantity" id="ipQuantity" value="@item.Quantity" />
+                                        </td>
+                                        <td>
+                                            <div class="price-wrap">
+                                                <var class="price">@item.Price</var>
+                                            </div> <!-- price-wrap .// -->
+                                        </td>
+                                        <td>
+                                            <div class="price-wrap">
+                                                <var class="price">@item.subtotal</var>
+                                            </div> <!-- price-wrap .// -->
+                                        </td>
+                                        <td class="text-right">
+                                            <input type="hidden" value="@item.proID" id="productid" />
+                                            <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip"> <i class="fa fa-heart"></i></a>
+
+
+                                            <a href="" class="btn btn-danger" id="updateCart"> Update</a>
+                                            <a href="" class="btn btn-light" id="removecart"> Remove</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <p>Không có sản phẩm trong giỏ hàng</p>
+                            }
+
+
+                        </tbody>
+                    </table>
+
+                    <div class="card-body border-top">
+                        <a href="#" class="btn btn-primary float-md-right"> Make Purchase <i class="fa fa-chevron-right"></i> </a>
+                        <a href="#" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Continue shopping </a>
+                    </div>
+                </div> <!-- card.// -->
+
+                <div class="alert alert-success mt-3">
+                    <p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
+                </div>
+
+            </main> <!-- col.// -->
+            <aside class="col-md-3">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label>Have coupon?</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="" placeholder="Coupon code">
+                                    <span class="input-group-append">
+                                        <button class="btn btn-primary">Apply</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div> <!-- card-body.// -->
+                </div>  <!-- card .// -->
+                <div class="card">
+                    <div class="card-body">
+                        <dl class="dlist-align">
+                            <dt>Total price:</dt>
+                            @if (Model != null)
+                            {
+                                <dd class="text-right">@Model.Sum(m => m.subtotal)</dd>
+                            }
+                            else
+                            {
+                                <dd class="text-right">0</dd>
+                            }
+
+                        </dl>
+
+                        <hr>
+
+
+                    </div> <!-- card-body.// -->
+                </div>  <!-- card .// -->
+            </aside> <!-- col.// -->
+        </div>
+
+    </div> <!-- container .//  -->
+</section>
+
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script>
+        $(function () {
+            $("#updateCart").click(function (event) {
+                event.preventDefault();
+
+                var model = {};
+                model.Id = $("#productid").val();
+                model.quantity = $("#ipQuantity").val();
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("UpdateCart", "ShoppingCart")",
+                    data: JSON.stringify(model),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+
+                    success: function (data) {
+                        if (data.code == 200) {
+
+                            alert("Cập nhật số lượng  thành công!")
+
+                            window.location.reload();
+                        } else if (data.code == 400) {
+                            alert("Ko tìm thấy id sản phẩm ")
+                        } else {
+                            alert("Số Lượng update vượt quá sản phẩm trong kho!")
+                        }
+                    },
+                    error: function (data) {
+
+                    }
+                })
+            })
+
+            $("#removecart").click(function () {
+            var model = {};
+            //lấy id sản phẩm
+            model.Id = $("#productid").val();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Remove", "ShoppingCart")',
+                data:  JSON.stringify(model) ,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    alert("Xóa sản phẩm thành công !")
+                     window.location.reload();
+                },
+                error: function () {
+                    alert("Lỗi trong khi xóa sản phẩm !");
+                }
+            });
+            return false;
+        });
+        })
+    </script>
+}

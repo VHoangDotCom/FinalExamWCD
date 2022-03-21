@@ -29,6 +29,9 @@ namespace AssignmentTest.Models
         [Required]
         public double Price { get; set; }
 
+        public int Quantity { get; set; }
+
+
         [ForeignKey("CateID")]
         public virtual Category Category { get; set; }
 

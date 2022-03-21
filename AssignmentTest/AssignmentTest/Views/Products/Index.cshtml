@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Index";
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <h2>Index</h2>
 
@@ -20,12 +21,12 @@
     UpdateTargetId = "resultId",
 }))
 {
-<p>
-    Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-    <input type="hidden" name="sortOrder" value="@Request.QueryString["sortOrder"]" />
-    
-    <input type="submit" value="Search" id="btn-submit" />
-</p>
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="hidden" name="sortOrder" value="@Request.QueryString["sortOrder"]" />
+
+        <input type="submit" value="Search" id="btn-submit" />
+    </p>
 }
 <img id="ajax-loader" width="50" src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AAjax_loader_metal_512.gif&psig=AOvVaw0qO-PDXotvB_T3NmxcX2g7&ust=1646274259315000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNjL7NmvpvYCFQAAAAAdAAAAABAJ" style="display:none" />
 
@@ -81,8 +82,30 @@
             $("input[name=SearchString]").on("keyup change", function (e) {
                 $("#btn-submit").click();
             })
-          
-           
+
+
+        })
+    </script>
+    <script>
+        $(function () {
+            $("#addToCart").click(function () {
+                var model = {};
+                model.Id = $('#productid').val();
+                model.quantity = $('#quantity').val();
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("AddToCart", "ShoppingCart")",
+                    data: JSON.stringify(model),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (data.code == 200) {
+                            alert("Thêm giỏ hàng thành công!")
+                        }
+                    },
+                    error: function (data) {
+                    }
+                })
+            })
         })
     </script>
 }
